@@ -1,0 +1,36 @@
+RewriteEngine On
+
+#all to www.hi2all.net
+RewriteCond %{HTTP_HOST} ^hi2all\.ru$
+RewriteRule (.*) http://www.hi2all.ru/$1 [R=301,L]
+RewriteCond %{HTTP_HOST} ^hi2all\.net$
+RewriteRule (.*) http://www.hi2all.ru/$1 [R=301,L]
+RewriteCond %{HTTP_HOST} ^www\.hi2all\.net$
+RewriteRule (.*) http://www.hi2all.ru/$1 [R=301,L]
+RewriteCond %{HTTP_HOST} ^hi2all\.org$
+RewriteRule (.*) http://www.hi2all.ru/$1 [R=301,L]
+RewriteCond %{HTTP_HOST} ^www\.hi2all\.org$
+RewriteRule (.*) http://www.hi2all.ru/$1 [R=301,L]
+
+#index.php to /
+RewriteCond %{REQUEST_URI} index\.php
+RewriteRule . / [R=301,L]
+
+#
+RewriteBase /
+RewriteCond %{REQUEST_URI} search
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^search(.*)$ search.php$1 [L]
+
+#all to index page
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . / [R=301,L]
+
+#block .inc
+<Files ~ "\.inc$">
+	Order allow,deny
+	Deny from all
+</Files>
